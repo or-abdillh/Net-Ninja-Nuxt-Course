@@ -1,0 +1,16 @@
+<template>
+    <header>
+        <nav>
+        <NuxtLink to="/">Dojo</NuxtLink>
+        <ul>
+            <li><NuxtLink to="/products">Products</NuxtLink></li>
+            <li><NuxtLink to="/about">About Us</NuxtLink></li>
+        </ul>
+        </nav>
+    </header>
+    
+    <section>
+        <h2>Products - Dojo</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt dicta temporibus iure placeat amet repellat reiciendis aut earum quidem, ab magni debitis recusandae facere, repudiandae fuga consectetur, expedita in harum?</p>
+    </section>
+</template>

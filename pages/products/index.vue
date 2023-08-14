@@ -30,12 +30,12 @@
 
 <script setup>
 
-const products = ref([])
+const { data: products } = await useFetch('https://fakestoreapi.com/products')
 
 const categoryHandler = async URI => {
     await useFetch(URI, {
         key: URI,
-        onResponse({ request, response, options }) {
+        onResponse({ response }) {
             products.value = response?._data
         }
     })

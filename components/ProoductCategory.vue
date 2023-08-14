@@ -36,6 +36,4 @@ const changed = value => {
     emits('category:change', URI)
 }
 
-changed('All')  
-
 </script>

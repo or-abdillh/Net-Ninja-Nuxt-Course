@@ -17,6 +17,6 @@ body {
     }
 
     .btn-primary {
-        @apply bg-green-500 text-gray-100;
+        @apply bg-green-500 text-gray-50;
     }
 }

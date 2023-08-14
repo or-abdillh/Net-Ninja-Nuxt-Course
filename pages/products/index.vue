@@ -8,6 +8,9 @@
         </section>
         <!-- end of title -->
 
+        <!-- categories -->
+        <ProoductCategory @category:change="categoryHandler"></ProoductCategory>
+
         <!-- products counter -->
         <section class="mb-5 text-right">
             <p class="text-gray-600">Showing {{ products.length }} products</p>
@@ -18,13 +21,7 @@
         <section class="grid grid-cols-4 gap-4">
             <template v-for="product in products" :key="product?.id">
                 <!-- card -->
-                <div class="bg-white p-6 rounded-lg shadow-sm flex flex-col justify-between duration-300 border border-gray-100 hover:border-green-500">
-                    <div>
-                        <small>Product</small>
-                        <h1 class="mb-3 text-lg">{{ product?.title }}</h1>
-                    </div>
-                    <NuxtLink class="text-green-500 text-sm" :to="`/products/${ product?.id }`">Detail Product</NuxtLink>
-                </div>
+                <ProductCard :product="product"></ProductCard>
             </template>
         </section>
         <!-- end of list of cards -->
@@ -33,6 +30,15 @@
 
 <script setup>
 
-const { data: products } = await useFetch('https://fakestoreapi.com/products')
+const products = ref([])
+
+const categoryHandler = async URI => {
+    await useFetch(URI, {
+        key: URI,
+        onResponse({ request, response, options }) {
+            products.value = response?._data
+        }
+    })
+}
 
 </script>

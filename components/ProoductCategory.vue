@@ -7,7 +7,7 @@
 
             <!-- others -->
             <template v-for="category in categories" :key="category">
-                <button @click="changed(category)" :class="active == category ? 'bg-green-500 text-gray-100' : 'text-green-500'" class="btn border border-green-400 px-6 text-green-500 duration-300">{{ category }}</button>
+                <button @click="changed(category)" :class="active == category ? 'bg-green-500 text-gray-100' : 'text-green-500'" class="btn border border-green-400 px-6 duration-300">{{ category }}</button>
             </template>
         </section>
     </section>
@@ -27,11 +27,13 @@ const changed = value => {
 
     // generate URI
     let URI
+
     if (value == 'All') {
         URI = 'https://fakestoreapi.com/products'
     } else {
         URI = `https://fakestoreapi.com/products/category/${ value }`
     }
+
     // trigger event
     emits('category:change', URI)
 }

@@ -36,6 +36,13 @@
 
 <script setup>
 
+useHead({
+    title: 'Dojo Merch - Products',
+    meta: [
+        { name: 'description', content: 'Nisi irure est eiusmod sit in Lorem Lorem proident pariatur laboris est ex ad esse.' }
+    ]
+})
+
 const isFetching = ref(false)
 
 const { data: products } = await useFetch('https://fakestoreapi.com/products')

@@ -19,6 +19,14 @@
                 <p class="text-green-500">Description</p>
                 <h1 class="text-sm text-gray-500">{{ product?.description }}</h1>
             </div>
+
+            <!-- action -->
+            <div>
+                <button class="btn btn-primary">
+                    <i class="fa-solid fa-cart-plus me-2"></i>
+                    Add to Cart
+                </button>
+            </div>
         </div>
     </section>
 </template>

@@ -1,4 +1,8 @@
 <template>
+    <Head>
+        <Title>Dojo Merch | {{ product?.title }}</Title>
+        <Meta name="description" :content="product?.description"></Meta>
+    </Head>
     <NuxtLayout name="default">
         <!-- detail -->
         <ProductDetail :product="product"></ProductDetail>

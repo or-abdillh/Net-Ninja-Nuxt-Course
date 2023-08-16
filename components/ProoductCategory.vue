@@ -15,7 +15,8 @@
 
 <script setup>
 
-const { data: categories } = await useFetch('https://fakestoreapi.com/products/categories')
+// get categories
+const { data: categories } = await useFetch('/api/products/category')
 
 const active = ref('All')
 
@@ -29,9 +30,9 @@ const changed = value => {
     let URI
 
     if (value == 'All') {
-        URI = 'https://fakestoreapi.com/products'
+        URI = '/api/products'
     } else {
-        URI = `https://fakestoreapi.com/products/category/${ value }`
+        URI = `/api/products/category/${ value }`
     }
 
     // trigger event

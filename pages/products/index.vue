@@ -13,7 +13,7 @@
 
         <!-- products counter -->
         <section v-if="!isFetching" class="mb-5 text-right">
-            <p class="text-gray-600">Showing {{ products.length }} products</p>
+            <p class="text-gray-600">Showing {{ products?.length }} products</p>
         </section>
         <!-- end of products counter -->
 
@@ -45,7 +45,7 @@ useHead({
 
 const isFetching = ref(false)
 
-const { data: products } = await useFetch('https://fakestoreapi.com/products')
+const { data: products } = await useFetch('/api/products')
 
 const categoryHandler = async URI => {
     // fetching begin

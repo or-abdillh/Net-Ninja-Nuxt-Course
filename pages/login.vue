@@ -6,7 +6,7 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, libero!</p>
             </span>
 
-            <form class="mt-6">
+            <form class="mt-6" @submit.prevent="login">
                 <!-- username -->
                 <div class="form--wrapper">
                     <label class="form--label" for="username">Username</label>
@@ -20,10 +20,10 @@
                 </div>
 
                 <!-- action -->
-                <button type="submit" class="btn btn-primary w-full mb-6">Login</button>
+                <button ref="btnSubmit" type="submit" class="btn btn-primary w-full mb-6">Login</button>
 
                 <!-- not have account -->
-                <p class="mb-5 text-sm text-gray-500">Not have account ? Click <button @click="getRandomUser" type="button" class="text-green-500" >here</button> to get random user credential</p>
+                <p class="mb-5 text-sm text-gray-500">Not have account ? <button @click="getRandomUser" type="button" class="text-green-500" >Click here</button> to get random user credential</p>
             </form>
         </section>
     </NuxtLayout>
@@ -33,7 +33,30 @@
 
 const username = ref('')
 const password = ref('')
+const btnSubmit = ref(null)
 
+// form handler
+const login = async () => {
+
+    // disabled submit button
+    btnSubmit.value.innerText = 'Please wait ...'
+    btnSubmit.value.disabled = true
+
+    // try to login
+    await useFetch('/api/users/login', {
+        method: 'POST',
+        body: {
+            username: username.value,
+            password: password.value
+        }
+    })
+
+    // enabled
+    btnSubmit.value.innerText = 'Login'
+    btnSubmit.value.disabled = false
+}
+
+// randoming user
 const getRandomUser = async evt => {
 
     evt.target.innerText = 'getting ...'
@@ -50,7 +73,7 @@ const getRandomUser = async evt => {
     username.value = user.username
     password.value = user.password
 
-    evt.target.innerText = 'here'
+    evt.target.innerText = 'Click here'
     evt.target.disabled = false
 }
 

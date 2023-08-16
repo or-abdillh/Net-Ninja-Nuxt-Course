@@ -19,4 +19,16 @@ body {
     .btn-primary {
         @apply bg-green-500 text-gray-50;
     }
+
+    .form--wrapper {
+        @apply mb-3;
+    }
+
+    .form--label {
+        @apply text-gray-400 text-sm inline-block w-full mb-2;
+    }
+
+    .form--input {
+        @apply w-full block p-3 rounded border border-gray-100 outline-none focus:border-green-500 duration-300 focus:pl-4;
+    }
 }

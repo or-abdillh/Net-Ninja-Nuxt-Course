@@ -33,6 +33,7 @@
 
 const username = ref('')
 const password = ref('')
+const id = ref(null)
 const btnSubmit = ref(null)
 const router = useRouter()
 
@@ -47,11 +48,12 @@ const login = async () => {
     btnSubmit.value.disabled = true
 
     // try to login
-    const { data } = await useFetch('/api/users/login', {
+    const { data } = await useFetch('/auth/login', {
         method: 'POST',
         body: {
             username: username.value,
-            password: password.value
+            password: password.value,
+            id: id.value
         }
     })
 
@@ -78,6 +80,7 @@ const getRandomUser = async evt => {
     // auto fill
     username.value = user.value.username
     password.value = user.value.password
+    id.value = user.value.id
 
     success('Berhasil mendapatkan kredensial user')
 

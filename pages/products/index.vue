@@ -12,13 +12,13 @@
         <ProoductCategory @category:change="categoryHandler"></ProoductCategory>
 
         <!-- products counter -->
-        <section v-if="!isFetching" class="mb-5 text-right">
+        <section v-if="!pending" class="mb-5 text-right">
             <p class="text-gray-600">Showing {{ products?.length }} products</p>
         </section>
         <!-- end of products counter -->
 
         <!-- list of cards -->
-        <section v-if="!isFetching" class="grid grid-cols-4 gap-4">
+        <section v-if="!pending" class="grid grid-cols-4 gap-4">
             <template v-for="product in products" :key="product?.id">
                 <!-- card -->
                 <ProductCard :product="product"></ProductCard>
@@ -43,13 +43,11 @@ useHead({
     ]
 })
 
-const isFetching = ref(false)
-
-const { data: products } = await useFetch('/api/products')
+const { data: products, pending } = await useFetch('/api/products', { lazy: true })
 
 const categoryHandler = async URI => {
-    // fetching begin
-    isFetching.value = true
+
+    pending.value = true
 
     await useFetch(URI, {
         key: URI,
@@ -58,8 +56,7 @@ const categoryHandler = async URI => {
         }
     })
 
-    // fetching is over
-    isFetching.value = false
+    pending.value = false
 }
 
 </script>

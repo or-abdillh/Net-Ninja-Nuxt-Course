@@ -34,6 +34,10 @@
 const username = ref('')
 const password = ref('')
 const btnSubmit = ref(null)
+const router = useRouter()
+
+// use notyf
+const { $notyfError: error, $notyfSuccess: success } = useNuxtApp()
 
 // form handler
 const login = async () => {
@@ -43,13 +47,20 @@ const login = async () => {
     btnSubmit.value.disabled = true
 
     // try to login
-    await useFetch('/api/users/login', {
+    const { data } = await useFetch('/api/users/login', {
         method: 'POST',
         body: {
             username: username.value,
             password: password.value
         }
     })
+
+    if (data.value.status) {
+        success('Login berhasil')
+        router.push('/')
+    } else {
+        error(`Login gagal! ${ data.value.message }`)
+    }
 
     // enabled
     btnSubmit.value.innerText = 'Login'
@@ -62,16 +73,13 @@ const getRandomUser = async evt => {
     evt.target.innerText = 'getting ...'
     evt.target.disabled = true
 
-    const { data: users } = await useFetch('/api/users')
-
-    // get random index
-    const index = Math.floor( Math.random() * users.value.length )
-
-    const user = users.value[index]
+    const { data: user } = await useFetch('/api/users')
 
     // auto fill
-    username.value = user.username
-    password.value = user.password
+    username.value = user.value.username
+    password.value = user.value.password
+
+    success('Berhasil mendapatkan kredensial user')
 
     evt.target.innerText = 'Click here'
     evt.target.disabled = false

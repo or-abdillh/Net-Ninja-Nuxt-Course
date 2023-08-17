@@ -1,21 +1,40 @@
 // define interface for user login
-interface IBody {
+interface IRequestBody {
     username: string
     password: string
 }
 
-interface IToken {
-    token: String
+interface IResponse {
+    status: boolean
+    message: string
+    data: Object | Array<any>
 }
 
 export default defineEventHandler(async event => {
 
-    const body: IBody = await readBody(event)
+    const body: IRequestBody = await readBody(event)
     
-    const response: IToken = await $fetch('https://fakestoreapi.com/auth/login', {
-        method: 'POST',
-        body
-    }) 
+    try {
+        // fetching 
+        const response = await $fetch('https://fakestoreapi.com/auth/login', {
+            method: 'POST',
+            body
+        })
 
-    return response
+        // return to client
+        return {
+            status: true,
+            message: 'Login success',
+            data: response
+        } as IResponse
+
+    } catch(err: any) {
+        // failed authentication
+        return {
+            status: false,
+            message: err?.data,
+            data: {}
+        } as IResponse
+    }
+
 })

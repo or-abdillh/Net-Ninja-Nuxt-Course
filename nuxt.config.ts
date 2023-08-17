@@ -2,7 +2,13 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+  ],
+  plugins: [
+    {
+      src: '~/plugins/notyf.client.ts',
+      mode: 'client'
+    }
   ],
   app: {
     head: {

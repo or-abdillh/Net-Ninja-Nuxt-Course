@@ -20,7 +20,7 @@
                 </div>
 
                 <!-- action -->
-                <button ref="buttonRef" type="submit" class="btn btn-primary w-full mb-6">Login</button>
+                <button ref="button" type="submit" class="btn btn-primary w-full mb-6">Login</button>
 
                 <!-- not have account -->
                 <p class="mb-5 text-sm text-gray-500">Not have account ? <button @click="getRandomUser" type="button" class="text-green-500" >Click here</button> to get random user credential</p>

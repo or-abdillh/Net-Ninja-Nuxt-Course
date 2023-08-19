@@ -34,7 +34,9 @@
     </NuxtLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
+import { IProduct } from '../../interfaces/product.interface'
 
 useHead({
     title: 'Dojo Merch - Products',
@@ -43,9 +45,10 @@ useHead({
     ]
 })
 
-const { data: products, pending } = await useFetch('/api/products', { lazy: true })
+// parse response
+const { data: products, pending }: { data: Ref<IProduct[]>, pending: Ref<boolean> } = await useFetch('/api/products', { lazy: true })
 
-const categoryHandler = async URI => {
+const categoryHandler = async (URI: string) => {
 
     pending.value = true
 

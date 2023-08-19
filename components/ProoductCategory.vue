@@ -13,16 +13,16 @@
     </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
 // get categories
-const { data: categories } = await useFetch('/api/products/category')
+const { data: categories }: { data: Ref<string[]> } = await useFetch('/api/products/category')
 
 const active = ref('All')
 
 const emits = defineEmits(['category:change'])
 
-const changed = value => {
+const changed = (value: string): void => {
 
     active.value = value
 

@@ -21,11 +21,13 @@
     </section>
 </template>
 
-<script setup>
+<script setup lang="ts">
+
+import { IProduct } from '../interfaces/product.interface'
 
 const props = defineProps({
     product: {
-        type: Object,
+        type: Object as () => IProduct,
         required: true
     }
 })

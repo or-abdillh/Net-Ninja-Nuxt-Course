@@ -20,7 +20,7 @@
                 </div>
 
                 <!-- action -->
-                <button ref="btnSubmit" type="submit" class="btn btn-primary w-full mb-6">Login</button>
+                <button ref="buttonRef" type="submit" class="btn btn-primary w-full mb-6">Login</button>
 
                 <!-- not have account -->
                 <p class="mb-5 text-sm text-gray-500">Not have account ? <button @click="getRandomUser" type="button" class="text-green-500" >Click here</button> to get random user credential</p>
@@ -29,23 +29,44 @@
     </NuxtLayout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 
-const username = ref('')
-const password = ref('')
-const id = ref(null)
-const btnSubmit = ref(null)
+// composables
+const app = useNuxtApp()
 const router = useRouter()
 
+// body
+const username = ref('')
+const password = ref('')
+const id = ref()
+
+// DOM Element
+const button = ref<HTMLButtonElement | null>(null)
+
 // use notyf
-const { $notyfError: error, $notyfSuccess: success } = useNuxtApp()
+const error: any = app.$notyfError
+const success: any = app.$notyfSuccess
+
+// middleware
+definePageMeta({
+    middleware: [
+        async (to: any, from: any) => {
+            // get session
+            const { session } = await useSession()
+
+            if (session.value?.auth) {
+                return navigateTo({ path: '/' })
+            }
+        }
+    ]
+})
 
 // form handler
 const login = async () => {
 
     // disabled submit button
-    btnSubmit.value.innerText = 'Please wait ...'
-    btnSubmit.value.disabled = true
+    button!.value!.innerText = 'Please wait ...'
+    button!.value!.disabled = true
 
     // try to login
     const { data } = await useFetch('/auth/login', {
@@ -57,35 +78,40 @@ const login = async () => {
         }
     })
 
-    if (data.value.status) {
+    if (data?.value?.status) {
         success('Login berhasil')
         router.push('/')
     } else {
-        error(`Login gagal! ${ data.value.message }`)
+        error(`Login gagal! ${ data?.value?.message }`)
     }
 
     // enabled
-    btnSubmit.value.innerText = 'Login'
-    btnSubmit.value.disabled = false
+    button!.value!.innerText = 'Submit'
+    button!.value!.disabled = false
 }
 
 // randoming user
-const getRandomUser = async evt => {
+const getRandomUser = async (evt: MouseEvent) => {
 
-    evt.target.innerText = 'getting ...'
-    evt.target.disabled = true
+    const targetElement = evt.target as HTMLButtonElement
+
+    targetElement.innerText = 'getting ...'
+    targetElement.disabled = true
 
     const { data: user } = await useFetch('/api/users')
 
     // auto fill
-    username.value = user.value.username
-    password.value = user.value.password
-    id.value = user.value.id
+    if (user.value) {
+
+        username.value = user.value.username
+        password.value = user.value.password
+        id.value = user.value.id
+    }
 
     success('Berhasil mendapatkan kredensial user')
 
-    evt.target.innerText = 'Click here'
-    evt.target.disabled = false
+    targetElement.innerText = 'Click here'
+    targetElement.disabled = false
 }
 
 </script>

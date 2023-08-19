@@ -11,4 +11,8 @@
 
 const { session } = await useSession()
 
+definePageMeta({
+  middleware: []
+})
+
 </script>

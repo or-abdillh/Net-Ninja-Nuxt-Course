@@ -1,7 +1,7 @@
 <template>
     <section>
         <p class="mb-2">Category</p>
-        <section class="flex gap-2">
+        <section class="flex gap-2 flex-wrap md:flex-nowrap">
             <!-- default -->
             <button @click="changed('All')" :class="active == 'All' ? 'bg-green-500 text-gray-100' : 'text-green-500'" class="btn px-6 border border-green-400 duration-300">All</button>
 

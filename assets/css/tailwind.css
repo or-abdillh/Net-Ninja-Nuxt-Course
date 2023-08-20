@@ -13,7 +13,7 @@ body {
 @layer components {
 
     .btn {
-        @apply rounded text-center px-6 py-2 text-sm disabled:bg-opacity-60;
+        @apply rounded text-center px-6 py-2 text-sm disabled:bg-opacity-60 active:scale-90 duration-300 active:opacity-50;
     }
 
     .btn-primary {

@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-white p-12 rounded-lg border flex gap-12">
+    <section class="bg-white p-12 rounded-lg border flex flex-col md:flex-row gap-12">
         <!-- image -->
         <div class="md:w-4/12">
             <NuxtImg preset="avatar" :src="product?.image" quality="80" format="webp" preload loading="lazy"></NuxtImg>

@@ -12,13 +12,13 @@
         <ProoductCategory @category:change="categoryHandler"></ProoductCategory>
 
         <!-- products counter -->
-        <section v-if="!pending" class="mb-5 text-right">
+        <section v-if="!pending" class="my-5 md:text-right">
             <p class="text-gray-600">Showing {{ products?.length }} products</p>
         </section>
         <!-- end of products counter -->
 
         <!-- list of cards -->
-        <section v-if="!pending" class="grid grid-cols-4 gap-4">
+        <section v-if="!pending" class="grid md:grid-cols-4 grid-cols-1 gap-4">
             <template v-for="product in products" :key="product?.id">
                 <!-- card -->
                 <ProductCard :product="product"></ProductCard>

@@ -2,7 +2,7 @@
     <section class="bg-white p-6 flex flex-col justify-between gap-4 rounded-lg shadow-sm duration-300 border border-gray-100 hover:border-green-500 hover:shadow-green-400 hover:shadow-lg hover:-translate-y-1">
         <section class="grid grid-cols-2 gap-6">
             <div class="grid place-items-center">
-                <img :src="product?.image" alt="Product Thumb">
+                <NuxtImg preset="avatar" :src="product?.image" quality="80" format="webp" preload loading="lazy"></NuxtImg>
             </div>
             <section>
                 <!-- product -->

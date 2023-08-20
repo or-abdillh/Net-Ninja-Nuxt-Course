@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    '@nuxtjs/tailwindcss', '@sidebase/nuxt-session'
+    '@nuxtjs/tailwindcss', '@sidebase/nuxt-session',
+    '@nuxt/image', 'nuxt-og-image'
   ],
   plugins: [
     {
@@ -20,5 +21,19 @@ export default defineNuxtConfig({
         { src: 'https://kit.fontawesome.com/b026c11a83.js', crossorigin: 'anonymous' }
       ]
     }
+  },
+  image: {
+    presets: {
+      avatar: {
+        modifiers: {
+          format: 'jpg',
+          width: 50,
+          height: 50
+        }
+      }
+    }
+  },
+  site: {
+    url: 'https://dojo-merch.vercel.app'
   }
 })

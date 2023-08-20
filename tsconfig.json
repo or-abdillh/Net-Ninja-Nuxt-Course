@@ -2,9 +2,9 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "",
+    "baseUrl": "C:/Users/user/Projects/Net Ninja - Nuxt 3/nuxt-dojo",
     "paths": {
-      "@interface": ["./interfaces/*"]
+      "@interface": ["C:/Users/user/Projects/Net Ninja - Nuxt 3/nuxt-dojo/interfaces/*"]
     }
   }
 }

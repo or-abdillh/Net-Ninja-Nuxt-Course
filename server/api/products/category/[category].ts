@@ -1,4 +1,4 @@
-import { IProducts } from "../../../../interfaces/products.interface"
+import { IProducts } from "@/interfaces/products.interface"
 
 export default defineEventHandler(async event => {
 

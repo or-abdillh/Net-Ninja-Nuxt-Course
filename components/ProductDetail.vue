@@ -2,7 +2,7 @@
     <section class="bg-white p-12 rounded-lg border flex gap-12">
         <!-- image -->
         <div class="md:w-4/12">
-            <img :src="product?.image" alt="Product Hero">
+            <NuxtImg preset="avatar" :src="product?.image" quality="80" format="webp" preload loading="lazy"></NuxtImg>
         </div>
 
         <!-- detail -->
@@ -41,5 +41,6 @@ const props = defineProps({
         required: true
     }
 })
+
 
 </script>

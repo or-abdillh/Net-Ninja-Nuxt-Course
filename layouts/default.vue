@@ -14,6 +14,8 @@
         </nav>
     </header>
 
+    <NuxtLoadingIndicator :height="6"></NuxtLoadingIndicator>
+
     <main class="p-8">
         <slot />
     </main>

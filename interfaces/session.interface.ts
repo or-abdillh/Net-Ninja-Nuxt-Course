@@ -1,5 +1,12 @@
 export interface ISession {
     id: string
     createdAt: Date
-    auth?: Object | null
+    auth?: {
+        name?: {
+            firstname?: string
+            lastname?: string
+        }
+        id?: number
+        token?: string 
+    }
 }

@@ -3,6 +3,7 @@ import { ICart } from "interfaces/cart.interface"
 
 export const useCartsState = defineStore('carts-state', {
 
+  persist: true,
   state() {
     return {
       carts: []
@@ -17,6 +18,10 @@ export const useCartsState = defineStore('carts-state', {
 
     getCartByProductId(state) {
       return (productId: any) => state.carts.find(cart => cart.productId == productId)
+    },
+
+    getCartsLength(state) {
+      return state.carts.length
     }
   },
 

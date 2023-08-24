@@ -4,7 +4,12 @@
             <NuxtLink class="font-semibold text-lg" to="/">Nuxt Dojo Merch</NuxtLink>
             <ul :class="isSidebar ? 'right-0' : '-right-full'" class="flex flex-col md:flex-row gap-4 items-end md:items-center p-8 md:p-0 fixed md:static top-20 bottom-0 bg-white duration-300 ease-in">
                 <li><NuxtLink to="/products">Products</NuxtLink></li>
-                <li><NuxtLink to="/cart">Cart</NuxtLink></li>
+                <li>
+                  <NuxtLink to="/cart" class="relative">
+                    Cart
+                    <div class="text-green-500 absolute -top-2 -right-3">{{ carts.getCartsLength }}</div>
+                  </NuxtLink>
+                </li>
                 <li><NuxtLink to="/about">About Us</NuxtLink></li>
                 <li v-if="!session?.auth"><NuxtLink to="/login" class="btn btn-primary">Login</NuxtLink></li>
                 <li v-else><button type="button" @click="logout" class="btn btn-primary">Logout</button></li>
@@ -26,6 +31,7 @@
 // composabels
 const { session } = await useSession()
 const router = useRouter()
+const carts = useCartsState()
 
 const isSidebar: Ref<boolean> = ref(false)
 

@@ -12,6 +12,7 @@
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.0.0-rc.1",
     "@nuxtjs/tailwindcss": "^6.8.0",
+    "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
     "@sidebase/nuxt-session": "^0.2.7",
     "@types/node": "^18.17.3",
     "nuxt": "^3.6.5",

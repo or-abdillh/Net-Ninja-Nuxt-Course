@@ -8,7 +8,8 @@ export default defineNuxtConfig({
       }
     ],
     '@nuxtjs/tailwindcss', '@sidebase/nuxt-session',
-    '@nuxt/image', 'nuxt-og-image'
+    '@nuxt/image', 'nuxt-og-image',
+    '@pinia-plugin-persistedstate/nuxt'
   ],
   plugins: [
     {

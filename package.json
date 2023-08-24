@@ -18,6 +18,11 @@
     "nuxt-og-image": "^2.0.18"
   },
   "dependencies": {
-    "notyf": "^3.10.0"
+    "@pinia/nuxt": "^0.4.11",
+    "notyf": "^3.10.0",
+    "pinia": "^2.1.6"
+  },
+  "overrides": {
+    "vue": "latest"
   }
 }

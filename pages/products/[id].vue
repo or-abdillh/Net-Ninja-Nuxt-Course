@@ -14,7 +14,7 @@
 import { IProduct } from '../../interfaces/product.interface'
 
 // get param ID
-const { id }: { id: number } = useRoute().params
+const { id } = useRoute().params
 
 // generate URI
 const URI: string = `https://fakestoreapi.com/products/${ id }`

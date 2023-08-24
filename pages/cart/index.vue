@@ -2,7 +2,7 @@
     <NuxtLayout name="default">
         <h1 class="text-2xl text-green-500">Your Carts</h1>
         <p class="mb-4 text-gray-800">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse facere fugiat, fugit nobis facilis nihil ex magnam, nostrum quo qui rem? Voluptatibus incidunt itaque rem assumenda quaerat eligendi dolorem fugiat.</p>
-        <template v-for="cart in carts" :key="cart">
+        <template v-for="cart in carts.getCarts" :key="cart">
             <!-- card -->
             <div class="w-full p-4 rounded border mb-3 bg-white grid grid-cols-2 justify-between">
                 <span>
@@ -23,5 +23,5 @@
 <script setup>
 
 // initial value
-const carts = useCarts()
+const carts = useCartsState()
 </script>

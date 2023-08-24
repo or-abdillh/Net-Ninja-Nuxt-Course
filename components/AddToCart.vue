@@ -31,15 +31,16 @@ const { session } = await useSession()
 const notyfSuccess: any = app.$notyfSuccess
 
 // use state and hanldler
-const carts = useCarts()
-const availableCart: Ref<ICart | undefined> = ref(undefined)
+const carts = useCartsState()
 
 // initial state
 const quantity: Ref<number> = ref(0)
-const userId = session.value?.auth?.id
+  const userId = session.value?.auth?.id
 
-// get param id
-const { id }: { id: number } = route.params
+// get product id at cart
+const availableCart: Ref<ICart | undefined> = ref(carts.getCartByProductId(route.params?.id))
+
+if (availableCart.value) quantity.value = availableCart.value.quantity
 
 // the props
 const props = defineProps({
@@ -67,43 +68,17 @@ const increaseQuantity = (): void => {
     quantity.value++
 }
 
-// check product is exist at carts
-const isProductExistAtCart = (target: number): boolean => {
-    return carts.value.length > 0 && carts.value.some(cart => cart.productId == target)
+// handler for push new item into carts state
+const addCart = () => {
+  carts.addItem({
+    productId: props.productId,
+    price: props.price,
+    quantity: quantity.value,
+    title: props.title,
+    userId
+  })
+
+  notyfSuccess('Berhasil menambahkan item ke keranjang!')
 }
-
-// the current product detail have a cart at list carts
-if ( isProductExistAtCart(id) ) {
-    availableCart.value = carts.value.find(cart => cart.productId == id)
-
-    quantity.value = availableCart.value?.quantity ?? 0
-
-    notyfSuccess(`Produk sudah ada di keranjang sebanyak ${ availableCart.value?.quantity } item`)
-} 
-
-// adding new object into carts state
-const addCart = (): void => {
-
-    if (isProductExistAtCart(props.productId)) {
-
-        carts.value.forEach(cart => {
-            if (cart.productId === props.productId) {
-                cart.quantity = quantity.value
-            }
-        })
-    } else {
-        carts.value.push({
-            userId,
-            productId: props.productId,
-            title: props.title,
-            price: props.price,
-            quantity: quantity.value
-        })
-    }
-
-    notyfSuccess('Berhasil ditambahkan ke dalam cart!')
-}
-
-
 
 </script>

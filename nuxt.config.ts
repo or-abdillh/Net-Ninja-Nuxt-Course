@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
+    [
+      '@pinia/nuxt', {
+        autoImports: ['defineStore']
+      }
+    ],
     '@nuxtjs/tailwindcss', '@sidebase/nuxt-session',
     '@nuxt/image', 'nuxt-og-image'
   ],
@@ -11,6 +16,9 @@ export default defineNuxtConfig({
       mode: 'client'
     }
   ],
+  imports: {
+    dirs: ['stores']
+  },
   app: {
     head: {
       title: 'Dojo Merch - Nuxt 3',

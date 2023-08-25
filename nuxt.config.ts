@@ -7,9 +7,11 @@ export default defineNuxtConfig({
         autoImports: ['defineStore']
       }
     ],
-    '@nuxtjs/tailwindcss', '@sidebase/nuxt-session',
-    '@nuxt/image', 'nuxt-og-image',
-    '@pinia-plugin-persistedstate/nuxt'
+    '@nuxtjs/tailwindcss',
+    '@sidebase/nuxt-session',
+    '@nuxt/image',
+    'nuxt-og-image',
+    '@pinia-plugin-persistedstate/nuxt',
   ],
   plugins: [
     {

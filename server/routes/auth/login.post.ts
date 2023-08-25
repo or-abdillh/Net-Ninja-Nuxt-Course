@@ -1,5 +1,4 @@
 import { IUser } from "../../../interfaces/user.interface"
-import { ISession } from "../../../interfaces/session.interface"
 
 // define interface for user login
 interface IRequestBody {
@@ -18,15 +17,6 @@ interface IToken {
   token: string
 }
 
-interface ISessionAuth {
-  name: {
-    firstname: string,
-    lastname: string
-  },
-  id: number
-  token: string
-}
-
 export default defineEventHandler(async event => {
 
   // parse body
@@ -42,19 +32,6 @@ export default defineEventHandler(async event => {
     // get spesific user using ID
     const user: IUser = await $fetch(`https://fakestoreapi.com/users/${body.id}`, { method: 'GET' })
 
-    // access session
-    const session: ISession = event.context.session
-
-    // save user credential into session
-    session.auth = {
-      name: {
-        firstname: user.name.firstname,
-        lastname: user.name.lastname
-      },
-      id: user.id,
-      token: response.token
-    } as ISessionAuth
-
     // return to client
     return {
       status: true,
@@ -66,6 +43,8 @@ export default defineEventHandler(async event => {
     } as IResponse
 
   } catch (err: any) {
+
+    console.log(err)
     // failed authentication
     return {
       status: false,

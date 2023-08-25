@@ -6,24 +6,26 @@
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, libero!</p>
             </span>
 
+            {{ user }}
+
             <form class="mt-6" @submit.prevent="login">
-                <!-- username -->
+                <!-- email -->
                 <div class="form--wrapper">
-                    <label class="form--label" for="username">Username</label>
-                    <input v-model="username" class="form--input" type="text" name="username" id="username" required placeholder="Type your username here">
+                    <label class="form--label" for="email">Email</label>
+                    <input v-model="form.email" class="form--input" type="email" name="email" id="email" required placeholder="Type your email here" autocomplete="off">
                 </div>
 
                 <!-- password -->
                 <div class="form--wrapper">
                     <label class="form--label" for="password">Password</label>
-                    <input v-model="password" class="form--input" type="password" name="password" id="password" required placeholder="Type your username here">
+                    <input v-model="form.password" class="form--input" type="password" name="password" id="password" required placeholder="Type your username here" autocomplete="off">
                 </div>
 
                 <!-- action -->
                 <button ref="button" type="submit" class="btn btn-primary w-full mb-6">Login</button>
 
                 <!-- not have account -->
-                <p class="mb-5 text-sm text-gray-500">Not have account ? <button @click="getRandomUser" type="button" class="text-green-500" >Click here</button> to get random user credential</p>
+                <p class="mb-5 text-sm text-gray-500">Not have account ? <button type="button" class="text-green-500" >Click here</button> to register account</p>
             </form>
         </section>
     </NuxtLayout>
@@ -35,10 +37,17 @@
 const app = useNuxtApp()
 const router = useRouter()
 
+// types
+type Form = {
+  email: string
+  password: string
+}
+
 // body
-const username = ref('')
-const password = ref('')
-const id = ref()
+const form: Ref<Form> = ref({
+  email: 'test@example.com',
+  password: 'password'
+})
 
 // DOM Element
 const button = ref<HTMLButtonElement | null>(null)
@@ -47,71 +56,22 @@ const button = ref<HTMLButtonElement | null>(null)
 const error: any = app.$notyfError
 const success: any = app.$notyfSuccess
 
-// middleware
-definePageMeta({
-    middleware: [
-        async (to: any, from: any) => {
-            // get session
-            const { session } = await useSession()
-
-            if (session.value?.auth) {
-                return navigateTo({ path: '/' })
-            }
-        }
-    ]
-})
+const user: Ref<any> = ref({})
 
 // form handler
 const login = async () => {
 
-    // disabled submit button
-    button!.value!.innerText = 'Please wait ...'
-    button!.value!.disabled = true
+  await useFetchApi('/sanctum/csrf-cookie', { method: 'get' })
 
-    // try to login
-    const { data } = await useFetch('/auth/login', {
-        method: 'POST',
-        body: {
-            username: username.value,
-            password: password.value,
-            id: id.value
-        }
-    })
+  const { error } = await useFetchApi('/login', {
+    method: 'POST',
+    body: form.value
+  })
 
-    if (data?.value?.status) {
-        success('Login berhasil')
-        router.push('/')
-    } else {
-        error(`Login gagal! ${ data?.value?.message }`)
-    }
+  const { data } = await useFetchApi('/api/user', { method: 'get' })
 
-    // enabled
-    button!.value!.innerText = 'Submit'
-    button!.value!.disabled = false
+  user.value = data.value
+
+  console.log(data.value)
 }
-
-// randoming user
-const getRandomUser = async (evt: MouseEvent) => {
-
-    const targetElement = evt.target as HTMLButtonElement
-
-    targetElement.innerText = 'getting ...'
-    targetElement.disabled = true
-
-    const { data: user } = await useFetch('/api/users')
-
-    // auto fill
-    if (user.value) {
-
-        username.value = user.value.username
-        password.value = user.value.password
-        id.value = user.value.id
-    }
-
-    success('Berhasil mendapatkan kredensial user')
-
-    targetElement.innerText = 'Click here'
-    targetElement.disabled = false
-}
-
 </script>
